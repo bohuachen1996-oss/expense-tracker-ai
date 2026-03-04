@@ -1,13 +1,17 @@
 'use client';
 
+import { useState } from 'react';
+import { Sparkles } from 'lucide-react';
 import { useExpenses } from '@/hooks/useExpenses';
 import { SummaryCards } from '@/components/dashboard/SummaryCards';
 import { SpendingChart } from '@/components/dashboard/SpendingChart';
 import { CategoryChart } from '@/components/dashboard/CategoryChart';
 import { RecentExpenses } from '@/components/dashboard/RecentExpenses';
+import { ExportDrawer } from '@/components/export-hub/ExportDrawer';
 
 export default function DashboardPage() {
   const { expenses, isLoaded } = useExpenses();
+  const [exportOpen, setExportOpen] = useState(false);
 
   if (!isLoaded) {
     return (
@@ -23,11 +27,21 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-6 max-w-7xl mx-auto">
       {/* Page header */}
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-sm text-gray-500 mt-1">
-          Your financial overview at a glance
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+          <p className="text-sm text-gray-500 mt-1">
+            Your financial overview at a glance
+          </p>
+        </div>
+        <button
+          onClick={() => setExportOpen(true)}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg text-white text-sm font-medium transition-all shadow-sm hover:shadow-md hover:scale-[1.02]"
+          style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed)' }}
+        >
+          <Sparkles size={15} />
+          Export Hub
+        </button>
       </div>
 
       {/* Summary cards */}
@@ -41,6 +55,13 @@ export default function DashboardPage() {
 
       {/* Recent expenses */}
       <RecentExpenses expenses={expenses} />
+
+      {/* Export Hub drawer */}
+      <ExportDrawer
+        isOpen={exportOpen}
+        onClose={() => setExportOpen(false)}
+        expenses={expenses}
+      />
     </div>
   );
 }

@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init && git add . && git commit -m \"Initial expense tracker implementation\" && git status)"
+    ]
+  }
+}

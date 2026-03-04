@@ -1,15 +1,17 @@
 'use client';
 
+import { useState } from 'react';
+import { Download } from 'lucide-react';
 import { useExpenses } from '@/hooks/useExpenses';
 import { SummaryCards } from '@/components/dashboard/SummaryCards';
 import { SpendingChart } from '@/components/dashboard/SpendingChart';
 import { CategoryChart } from '@/components/dashboard/CategoryChart';
 import { RecentExpenses } from '@/components/dashboard/RecentExpenses';
-import { exportToCSV } from '@/lib/utils';
-import { Download } from 'lucide-react';
+import { ExportModal } from '@/components/export/ExportModal';
 
 export default function DashboardPage() {
   const { expenses, isLoaded } = useExpenses();
+  const [exportOpen, setExportOpen] = useState(false);
 
   if (!isLoaded) {
     return (
@@ -33,8 +35,8 @@ export default function DashboardPage() {
           </p>
         </div>
         <button
-          onClick={() => exportToCSV(expenses)}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-colors"
+          onClick={() => setExportOpen(true)}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-colors shadow-sm"
         >
           <Download size={16} />
           Export Data
@@ -52,6 +54,13 @@ export default function DashboardPage() {
 
       {/* Recent expenses */}
       <RecentExpenses expenses={expenses} />
+
+      {/* Export modal */}
+      <ExportModal
+        isOpen={exportOpen}
+        onClose={() => setExportOpen(false)}
+        expenses={expenses}
+      />
     </div>
   );
 }

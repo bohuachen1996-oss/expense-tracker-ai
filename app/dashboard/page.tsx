@@ -5,6 +5,8 @@ import { SummaryCards } from '@/components/dashboard/SummaryCards';
 import { SpendingChart } from '@/components/dashboard/SpendingChart';
 import { CategoryChart } from '@/components/dashboard/CategoryChart';
 import { RecentExpenses } from '@/components/dashboard/RecentExpenses';
+import { exportToCSV } from '@/lib/utils';
+import { Download } from 'lucide-react';
 
 export default function DashboardPage() {
   const { expenses, isLoaded } = useExpenses();
@@ -23,11 +25,20 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-6 max-w-7xl mx-auto">
       {/* Page header */}
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-sm text-gray-500 mt-1">
-          Your financial overview at a glance
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+          <p className="text-sm text-gray-500 mt-1">
+            Your financial overview at a glance
+          </p>
+        </div>
+        <button
+          onClick={() => exportToCSV(expenses)}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-colors"
+        >
+          <Download size={16} />
+          Export Data
+        </button>
       </div>
 
       {/* Summary cards */}

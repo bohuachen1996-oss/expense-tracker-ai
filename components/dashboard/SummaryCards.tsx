@@ -1,6 +1,6 @@
 'use client';
 
-import { TrendingUp, TrendingDown, Receipt, Calendar, Tag } from 'lucide-react';
+import { TrendingUp, TrendingDown, Receipt, Calendar } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Expense } from '@/lib/types';
 import {

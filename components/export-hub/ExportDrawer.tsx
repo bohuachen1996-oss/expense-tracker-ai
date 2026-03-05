@@ -1,15 +1,15 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { format, addDays, addWeeks, addMonths, startOfMonth, endOfMonth, subMonths, startOfYear, parseISO } from 'date-fns';
+import { format, startOfMonth, endOfMonth, subMonths, parseISO } from 'date-fns';
 import {
   X, Layers, Share2, Plug, Clock, History,
   CheckCircle2, Copy, Mail, RefreshCw, Wifi, WifiOff,
-  Download, ChevronRight, Bell, Play, Pause,
+  Download, ChevronRight, Bell, Play,
   ExternalLink, AlertCircle, Loader2, Sparkles,
 } from 'lucide-react';
 import { Expense } from '@/lib/types';
-import { CATEGORY_COLORS, exportToCSV, formatCurrency, formatDate } from '@/lib/utils';
+import { exportToCSV } from '@/lib/utils';
 import { EXPORT_TEMPLATES, ExportTemplate, DateRangePreset } from '@/lib/exportTemplates';
 import {
   appendHistory, calcNextRun, ExportRecord, IntegrationId, IntegrationState,

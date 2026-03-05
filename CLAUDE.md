@@ -111,4 +111,10 @@ Before merging any PR:
 npm run dev        # Start dev server → http://localhost:3000
 npm run build      # Production build
 npx tsc --noEmit   # Type check only
+npx eslint . --ext .ts,.tsx  # Lint check
 ```
+
+## Code Quality Notes
+- `useExpenses` uses lazy `useState(() => loadExpenses())` — no `useEffect` needed for synchronous localStorage reads
+- `SortButton` must remain outside `ExpenseList` (component-in-render causes state reset)
+- `date-fns` imports: only import what's used; `format` conflicts with local variables — alias as `dateFnsFormat`

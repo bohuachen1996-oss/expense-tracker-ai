@@ -1,18 +1,13 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { loadExpenses, saveExpenses } from '@/lib/storage';
 import { generateId, getTodayISO } from '@/lib/utils';
 import { Expense, ExpenseFormData } from '@/lib/types';
 
 export function useExpenses() {
-  const [expenses, setExpenses] = useState<Expense[]>([]);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    setExpenses(loadExpenses());
-    setIsLoaded(true);
-  }, []);
+  const [expenses, setExpenses] = useState<Expense[]>(() => loadExpenses());
+  const isLoaded = true;
 
   const persist = useCallback((updated: Expense[]) => {
     setExpenses(updated);

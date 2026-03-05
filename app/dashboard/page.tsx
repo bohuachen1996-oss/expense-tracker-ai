@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Download } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { useExpenses } from '@/hooks/useExpenses';
 import { SummaryCards } from '@/components/dashboard/SummaryCards';
 import { SpendingChart } from '@/components/dashboard/SpendingChart';
 import { CategoryChart } from '@/components/dashboard/CategoryChart';
 import { RecentExpenses } from '@/components/dashboard/RecentExpenses';
-import { ExportModal } from '@/components/export/ExportModal';
+import { ExportDrawer } from '@/components/export-hub/ExportDrawer';
 
 export default function DashboardPage() {
   const { expenses, isLoaded } = useExpenses();
@@ -36,10 +36,11 @@ export default function DashboardPage() {
         </div>
         <button
           onClick={() => setExportOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700 transition-colors shadow-sm"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg text-white text-sm font-medium transition-all shadow-sm hover:shadow-md hover:scale-[1.02]"
+          style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed)' }}
         >
-          <Download size={16} />
-          Export Data
+          <Sparkles size={15} />
+          Export Hub
         </button>
       </div>
 
@@ -55,8 +56,8 @@ export default function DashboardPage() {
       {/* Recent expenses */}
       <RecentExpenses expenses={expenses} />
 
-      {/* Export modal */}
-      <ExportModal
+      {/* Export Hub drawer */}
+      <ExportDrawer
         isOpen={exportOpen}
         onClose={() => setExportOpen(false)}
         expenses={expenses}
